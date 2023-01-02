@@ -75,8 +75,20 @@ WSGI_APPLICATION = 'django_todo.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ['DATABASE_NAME'],
+        'HOST': os.environ['DATABASE_HOST'],
+        'PORT': int(os.environ['DATABASE_PORT']),
+    }
+}
+
+CACHE = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://redis:6379/1',
+        'OPTION': {
+            'CLIENT_CLASS': 'dajngo_redis.client.DefaultClient'
+        }
     }
 }
 
